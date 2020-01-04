@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'question.dart';
 import 'quiz_brain.dart';
@@ -30,10 +32,26 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-
   List<Icon> scoreKeeper = [];
 
-  int questionNum = 0;
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAns = quizBrain.getCorrectAnswer();
+
+    setState(() {
+      if (userPickedAnswer == false) {
+        scoreKeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        scoreKeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
+    });
+    quizBrain.nextQuestion();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +90,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAns = quizBrain.getCorrectAnswer();
-
-                if (correctAns == true) {
-                  print('right');
-                } else {
-                  print('wrong');
-                }
+                checkAnswer(false);
                 setState(() {
                   quizBrain.nextQuestion();
                 });
@@ -99,13 +111,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAns = quizBrain.getCorrectAnswer();
-
-                if (correctAns == false) {
-                  print('right');
-                } else {
-                  print('wrong');
-                }
+                checkAnswer(true);
                 setState(() {
                   scoreKeeper.add(Icon(
                     Icons.check,
