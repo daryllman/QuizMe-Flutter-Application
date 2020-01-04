@@ -47,7 +47,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNum].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -72,7 +72,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAns = quizBrain.questionBank[questionNum].questionAnswer;
+                bool correctAns = quizBrain.getCorrectAnswer();
 
                 if (correctAns == true) {
                   print('right');
@@ -80,7 +80,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('wrong');
                 }
                 setState(() {
-                  questionNum++;
+                  quizBrain.nextQuestion();
                 });
               },
             ),
@@ -99,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAns = quizBrain.questionBank[questionNum].questionAnswer;
+                bool correctAns = quizBrain.getCorrectAnswer();
 
                 if (correctAns == false) {
                   print('right');
@@ -111,7 +111,7 @@ class _QuizPageState extends State<QuizPage> {
                     Icons.check,
                     color: Colors.green,
                   ));
-                  questionNum++;
+                  quizBrain.nextQuestion();
                 });
                 //The user picked false.
               },
