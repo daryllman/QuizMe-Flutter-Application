@@ -1,4 +1,4 @@
-# QuizMe Flutter APplication
+# QuizMe Flutter Application
 A  Flutter application with a Quiz interface --with more complex handling of UI components
 
 ## Getting Started
